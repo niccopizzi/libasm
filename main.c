@@ -77,7 +77,7 @@ int main(int argc, char* argv[])
     if (argc > 1)
     {
         int res = ft_putnbr_base(atoi(argv[1]), argv[2]);
-        res == 1 ? printf ("Good base\n") : printf("Bad base\n");
+        printf("\n");
     }
     return(0);
 }
