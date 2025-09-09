@@ -1,5 +1,5 @@
 ASM     = nasm
-ASFLAGS = -f elf64
+ASFLAGS = -f elf64 -i./src
 GCCFLAGS = -g -O0 -z noexecstack -fno-builtin
 LIB = -L./ -lasm
 
@@ -12,14 +12,17 @@ NAME = libasm.a
 SRC_DIR = src/
 OBJ_DIR = obj/
 
-SRC     = 	ft_strcmp.s		\
-			ft_strcpy.s		\
-			ft_strlen.s		\
-			ft_write.s		\
-			ft_read.s		\
-			ft_strdup.s		\
-			ft_putnbr_base.s 
-
+SRC     = 	ft_strcmp.s				\
+			ft_strcpy.s				\
+			ft_strlen.s				\
+			ft_write.s				\
+			ft_read.s				\
+			ft_strdup.s				\
+			ft_putnbr_base.s		\
+			ft_list_push_front.s	\
+			ft_list_size.s			\
+			ft_list_sort.s			\
+			ft_list_remove_if.s
 
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.s=.o))
 

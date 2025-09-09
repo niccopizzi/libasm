@@ -1,7 +1,13 @@
 #include "asm.h"
 
+void free_func(void *data)
+{
+    printf("Free func called on data %s\n", (char*)data);
+}
+
 int main(int argc, char* argv[])
 {
+    srand(time(NULL));
 /*     //strlen test
     {
         const char str[10] = {0};
@@ -74,10 +80,129 @@ int main(int argc, char* argv[])
         printf ("Result -> %s\n", str2);
     } */
 
-    if (argc > 1)
+    /* if (argc > 1)
     {
         int res = ft_putnbr_base(atoi(argv[1]), argv[2]);
         printf("\n");
+    } */
+/* 
+    t_list* head = malloc(sizeof(t_list));
+
+    head->data = (void*)"1";
+
+    head->next = malloc(sizeof(t_list));
+    head->next->data = (void*)"2";
+    head->next->next = NULL;
+
+    printf("List size before -> %d\n", ft_list_size(head));
+    
+    char* new_data = "0";
+    ft_list_push_front(&head, new_data);
+
+    printf("List size after  -> %d\n", ft_list_size(head));
+    
+    for (t_list* it = head; it != NULL; it = it->next)
+    {
+        printf("%s\n", (char*)it->data);
+    }
+
+    head = NULL;
+
+    printf("List size before -> %d\n", ft_list_size(head));
+    ft_list_push_front(&head, new_data);
+
+    for (t_list* it = head; it != NULL; it = it->next)
+    {
+        printf("%s\n", (char*)it->data);
+    }
+    printf("List size after  -> %d\n", ft_list_size(head));
+
+    head = malloc(sizeof(t_list));
+
+    head->data = (void*)"1";
+
+    head->next = malloc(sizeof(t_list));
+    head->next->data = (void*)"2";
+    head->next->next = NULL;
+
+    ft_list_push_front(&head, NULL);
+
+    for (t_list* it = head; it != NULL; it = it->next)
+    {
+        printf("%s\n", (char*)it->data);
+    }
+
+    ft_list_push_front(NULL, "test");
+    
+    printf("List size of NULL %d\n", ft_list_size(NULL));
+ */
+    /* t_list* head = malloc(sizeof(t_list));
+
+    head->data = "0";
+    t_list * ptr = head;
+    for (int i = 0; i < 22; ++i)
+    {
+        ptr->next = malloc(sizeof(t_list));
+        char* c = malloc(1);
+        *c = (rand() % 22) + 65;
+        ptr->next->data = c;
+        ptr = ptr->next;
+
+    }
+    printf("List before sort\n");
+    for (t_list* ptr = head; ptr != NULL; ptr = ptr->next)
+    {
+        printf("%s ", (char*)ptr->data);
+    }
+    ft_list_sort(&head, &ft_strcmp);
+    printf("\nList after sort\n");
+    for (t_list* ptr = head; ptr != NULL; ptr = ptr->next)
+    {
+        printf("%s ", (char*)ptr->data);
+    }
+    printf("\n");
+
+    ft_list_sort(NULL, &ft_strcmp);
+    ft_list_sort(&head, NULL);
+    ft_list_sort(NULL,NULL); */
+
+    t_list *head = malloc(sizeof(t_list));
+
+    memset(head,0,sizeof(t_list));
+    head->data = (void *)"remove";
+    t_list * ptr = head;
+
+
+    for (int i = 0; i < 10; ++i)
+    {
+        ptr->next = malloc(sizeof(t_list));
+        memset(ptr->next, 0, sizeof(t_list));
+        char c = i + 48;
+        if (rand() % 2 == 0)
+            ptr->next->data = ft_strdup(&c);
+        else
+            ptr->next->data = "remove";
+        ptr = ptr->next;
+    }
+    printf ("List before remove if\n");
+    for (t_list* ptr = head; ptr != NULL; ptr = ptr->next)
+    {
+        printf("%s\n", (char*)ptr->data);
+    }
+    ft_list_remove_if(&head, "remove", &ft_strcmp, &free_func);
+    printf("\nList after remove if\n");
+    for (t_list* ptr = head; ptr != NULL; ptr = ptr->next)
+    {
+        printf("%s\n", (char*)ptr->data);
+    }
+
+    for (t_list* ptr = head; ptr != NULL;)
+    {
+        t_list* next = ptr->next;
+        
+        free(ptr->data);
+        free (ptr);
+        ptr = next;
     }
     return(0);
 }
